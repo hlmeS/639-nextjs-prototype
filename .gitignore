@@ -18,6 +18,10 @@
 # misc
 .DS_Store
 *.pem
+.eslintignore
+.eslintrc.js
+.prettierignore
+.prettierrc.yml
 
 # debug
 npm-debug.log*
