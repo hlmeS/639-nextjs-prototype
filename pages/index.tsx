@@ -86,31 +86,28 @@ const Home = ({ todos = [] }: { todos: Todo[] }) => {
 
 						<div className={styles.card}>
 							<h3 className={styles.title}>New Todo</h3>
+							<form onSubmit={handleCreateTodo}>
+								<fieldset>
+									<legend>Name</legend>
+									<input
+										defaultValue={`Today, ${new Date().toLocaleTimeString()}`}
+										name="name"
+									/>
+								</fieldset>
 
-							<AmplifyAuthenticator>
-								<form onSubmit={handleCreateTodo}>
-									<fieldset>
-										<legend>Name</legend>
-										<input
-											defaultValue={`Today, ${new Date().toLocaleTimeString()}`}
-											name="name"
-										/>
-									</fieldset>
+								<fieldset>
+									<legend>Description</legend>
+									<textarea
+										defaultValue="I have to build an Amplify app with Next.js!"
+										name="description"
+									/>
+								</fieldset>
 
-									<fieldset>
-										<legend>Description</legend>
-										<textarea
-											defaultValue="I have to build an Amplify app with Next.js!"
-											name="description"
-										/>
-									</fieldset>
-
-									<button>Create Todo</button>
-									<button type="button" onClick={() => Auth.signOut()}>
-										Sign out
-									</button>
-								</form>
-							</AmplifyAuthenticator>
+								<button>Create Todo</button>
+								<button type="button" onClick={() => Auth.signOut()}>
+									Sign out
+								</button>
+							</form>
 						</div>
 					</div>
 				</main>
