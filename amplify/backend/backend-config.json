@@ -1,35 +1,35 @@
 {
-  "api": {
-    "639nextjsprototype": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
-              "description": ""
-            }
-          },
-          "additionalAuthenticationProviders": []
-        }
-      }
-    }
-  },
-  "auth": {
-    "639nextjsprototype2cfe8a93": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  },
-  "hosting": {
-    "amplifyhosting": {
-      "service": "amplifyhosting",
-      "type": "cicd",
-      "lastPushTimeStamp": "2021-07-12T00:15:25.957Z"
-    }
-  }
+	"api": {
+		"639nextjsprototype": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"defaultAuthentication": {
+						"authenticationType": "API_KEY",
+						"apiKeyConfig": {
+							"apiKeyExpirationDays": 30,
+							"description": ""
+						}
+					},
+					"additionalAuthenticationProviders": []
+				}
+			}
+		}
+	},
+	"auth": {
+		"639nextjsprototype2cfe8a93": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	},
+	"hosting": {
+		"amplifyhosting": {
+			"service": "amplifyhosting",
+			"type": "cicd",
+			"lastPushTimeStamp": "2021-07-12T00:15:25.957Z"
+		}
+	}
 }

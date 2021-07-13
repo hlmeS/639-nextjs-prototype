@@ -28,6 +28,5 @@ yarn create next-app --example with-tailwindcss with-tailwindcss-app
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
 
-
 GraphQL endpoint: https://qaqp55iw35d7fjjxextjgdbqq4.appsync-api.us-east-1.amazonaws.com/graphql
 GraphQL API KEY: da2-dznklakzcjfsti3z2di2m6uvey
