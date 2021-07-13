@@ -20,7 +20,6 @@ import { SearchIcon } from '@heroicons/react/solid'
 
 export const siteTitle = 'Solar Mining Datacenter Management System'
 
-
 const navigation = [
 	{ name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
 	{ name: 'Team', href: '#', icon: UsersIcon, current: false },
@@ -30,30 +29,23 @@ const navigation = [
 	{ name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+	{ name: 'Your Profile', href: '#' },
+	{ name: 'Settings', href: '#' },
+	{ name: 'Sign out', href: '#' },
 ]
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ')
 }
 
-export default function Layout({
-	children,
-}: {
-	children: React.ReactNode,
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false)
 
 	return (
 		<div className="h-screen flex overflow-hidden bg-gray-100">
 			<Head>
 				<link rel="icon" href="/favicon.ico" />
-				<meta
-					name="description"
-					content="Management System for a Solar Datacenter"
-				/>
+				<meta name="description" content="Management System for a Solar Datacenter" />
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 				<meta name="og:title" content={siteTitle} />
@@ -116,19 +108,23 @@ export default function Layout({
 							</div>
 							<div className="mt-5 flex-1 h-0 overflow-y-auto">
 								<nav className="px-2 space-y-1">
-									{navigation.map((item) => (
+									{navigation.map(item => (
 										<a
 											key={item.name}
 											href={item.href}
 											className={classNames(
-												item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-												'group flex items-center px-2 py-2 text-base font-medium rounded-md'
+												item.current
+													? 'bg-gray-900 text-white'
+													: 'text-gray-300 hover:bg-gray-700 hover:text-white',
+												'group flex items-center px-2 py-2 text-base font-medium rounded-md',
 											)}
 										>
 											<item.icon
 												className={classNames(
-													item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
-													'mr-4 flex-shrink-0 h-6 w-6'
+													item.current
+														? 'text-gray-300'
+														: 'text-gray-400 group-hover:text-gray-300',
+													'mr-4 flex-shrink-0 h-6 w-6',
 												)}
 												aria-hidden="true"
 											/>
@@ -159,19 +155,21 @@ export default function Layout({
 						</div>
 						<div className="flex-1 flex flex-col overflow-y-auto">
 							<nav className="flex-1 px-2 py-4 bg-gray-800 space-y-1">
-								{navigation.map((item) => (
+								{navigation.map(item => (
 									<a
 										key={item.name}
 										href={item.href}
 										className={classNames(
-											item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-											'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+											item.current
+												? 'bg-gray-900 text-white'
+												: 'text-gray-300 hover:bg-gray-700 hover:text-white',
+											'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
 										)}
 									>
 										<item.icon
 											className={classNames(
 												item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
-												'mr-3 flex-shrink-0 h-6 w-6'
+												'mr-3 flex-shrink-0 h-6 w-6',
 											)}
 											aria-hidden="true"
 										/>
@@ -246,14 +244,14 @@ export default function Layout({
 												static
 												className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
 											>
-												{userNavigation.map((item) => (
+												{userNavigation.map(item => (
 													<Menu.Item key={item.name}>
 														{({ active }) => (
 															<a
 																href={item.href}
 																className={classNames(
 																	active ? 'bg-gray-100' : '',
-																	'block px-4 py-2 text-sm text-gray-700'
+																	'block px-4 py-2 text-sm text-gray-700',
 																)}
 															>
 																{item.name}
@@ -271,9 +269,7 @@ export default function Layout({
 				</div>
 
 				<main className="flex-1 relative overflow-y-auto focus:outline-none">
-					<div className="py-6">
-						{children}
-					</div>
+					<div className="py-6">{children}</div>
 				</main>
 			</div>
 		</div>

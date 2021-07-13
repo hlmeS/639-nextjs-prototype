@@ -1,61 +1,60 @@
 // pages/index.js
-import { AmplifyAuthenticator } from "@aws-amplify/ui-react"
-import { Amplify, API, Auth, withSSRContext } from "aws-amplify"
+import { AmplifyAuthenticator } from '@aws-amplify/ui-react'
+import { Amplify, API, Auth, withSSRContext } from 'aws-amplify'
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api-graphql'
-import Head from "next/head"
-import awsExports from "../src/aws-exports"
-import { createTodo } from "../src/graphql/mutations"
-import { listTodos } from "../src/graphql/queries"
-import styles from "../styles/Home.module.css"
-import Layout from "../components/Layout"
+import Head from 'next/head'
+import awsExports from '../src/aws-exports'
+import { createTodo } from '../src/graphql/mutations'
+import { listTodos } from '../src/graphql/queries'
+import styles from '../styles/Home.module.css'
+import Layout from '../components/Layout'
 import { GetServerSideProps } from 'next'
-import React from "react"
-import { CreateTodoMutation, CreateTodoMutationVariables, Todo } from "../src/API";
+import React from 'react'
+import { CreateTodoMutation, CreateTodoMutationVariables, Todo } from '../src/API'
 
-Amplify.configure({ ...awsExports, ssr: true });
+Amplify.configure({ ...awsExports, ssr: true })
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-	const SSR = withSSRContext({ req });
-	const response = await SSR.API.graphql({ query: listTodos });
+	const SSR = withSSRContext({ req })
+	const response = await SSR.API.graphql({ query: listTodos })
 
 	return {
 		props: {
 			todos: response.data.listTodos.items,
 		},
-	};
+	}
 }
 
 const handleCreateTodo = async (event: React.FormEvent<HTMLFormElement>) => {
-	event.preventDefault();
+	event.preventDefault()
 
-	const form = new FormData(event.currentTarget);
+	const form = new FormData(event.currentTarget)
 
 	try {
-		console.log("etaetaet")
+		console.log('etaetaet')
 		const variables: CreateTodoMutationVariables = {
 			input: {
-				name: String(form.get("name")),
-				description: String(form.get("description")),
-			}
+				name: String(form.get('name')),
+				description: String(form.get('description')),
+			},
 		}
 
 		const result = await API.graphql({
 			authMode: GRAPHQL_AUTH_MODE.API_KEY,
 			query: createTodo,
 			variables,
-		});
+		})
 
 		console.log(JSON.stringify(result))
 
-		if ('data' in result && result.data ) {
+		if ('data' in result && result.data) {
 			const data = result.data as CreateTodoMutation
 			console.log(JSON.stringify(data))
-			window.location.href = `/todos/${data.createTodo.id}`;
+			window.location.href = `/todos/${data.createTodo.id}`
 		}
-
 	} catch ({ errors }) {
-		console.error(...errors);
-		throw new Error(errors[0].message);
+		console.error(...errors)
+		throw new Error(errors[0].message)
 	}
 }
 
@@ -69,11 +68,15 @@ const Home = ({ todos = [] }: { todos: Todo[] }) => {
 				<div className="flow-root mt-6">
 					<p>{todos.length} todos </p>
 					<ul className="-my-5 divide-y divide-gray-200">
-						{todos.map((todo) => (
+						{todos.map(todo => (
 							<li key={todo.id} className="py-5">
 								<div className="relative focus-within:ring-2 focus-within:ring-indigo-500">
 									<h3 className="text-sm font-semibold text-gray-800">
-										<a href={`/todos/${todo.id}`} key={todo.id} className="hover:underline focus:outline-none">
+										<a
+											href={`/todos/${todo.id}`}
+											key={todo.id}
+											className="hover:underline focus:outline-none"
+										>
 											{/* Extend touch target to entire panel */}
 											<span className="absolute inset-0" aria-hidden="true" />
 											{todo.name}
@@ -86,7 +89,7 @@ const Home = ({ todos = [] }: { todos: Todo[] }) => {
 					</ul>
 				</div>
 			</div>
-			
+
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
 				<div className="flow-root mt-12">
 					<form onSubmit={handleCreateTodo} className="space-y-8 divide-y divide-gray-200">
@@ -114,7 +117,10 @@ const Home = ({ todos = [] }: { todos: Todo[] }) => {
 									</div>
 
 									<div className="sm:col-span-6">
-										<label htmlFor="description" className="block text-sm font-medium text-gray-700">
+										<label
+											htmlFor="description"
+											className="block text-sm font-medium text-gray-700"
+										>
 											Description
 										</label>
 										<div className="mt-1">
@@ -147,12 +153,10 @@ const Home = ({ todos = [] }: { todos: Todo[] }) => {
 							</div>
 						</div>
 					</form>
-
 				</div>
 			</div>
-
 		</Layout>
-	);
+	)
 }
 
 export default Home
