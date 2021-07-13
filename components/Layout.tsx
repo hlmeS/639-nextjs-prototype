@@ -1,9 +1,7 @@
-import React from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import {
 	BellIcon,
@@ -34,11 +32,11 @@ const userNavigation = [
 	{ name: 'Sign out', href: '#' },
 ]
 
-function classNames(...classes) {
+function classNames(...classes): string {
 	return classes.filter(Boolean).join(' ')
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }): React.ReactElement {
 	const [sidebarOpen, setSidebarOpen] = useState(false)
 
 	return (
@@ -93,6 +91,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 									<button
 										className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
 										onClick={() => setSidebarOpen(false)}
+										type="button"
 									>
 										<span className="sr-only">Close sidebar</span>
 										<XIcon className="h-6 w-6 text-white" aria-hidden="true" />
@@ -186,6 +185,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 					<button
 						className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
 						onClick={() => setSidebarOpen(true)}
+						type="button"
 					>
 						<span className="sr-only">Open sidebar</span>
 						<MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
@@ -195,23 +195,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 							<form className="w-full flex md:ml-0" action="#" method="GET">
 								<label htmlFor="search-field" className="sr-only">
 									Search
-								</label>
-								<div className="relative w-full text-gray-400 focus-within:text-gray-600">
-									<div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
-										<SearchIcon className="h-5 w-5" aria-hidden="true" />
+									<div className="relative w-full text-gray-400 focus-within:text-gray-600">
+										<div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+											<SearchIcon className="h-5 w-5" aria-hidden="true" />
+										</div>
+										<input
+											id="search-field"
+											className="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
+											placeholder="Search"
+											type="search"
+											name="search"
+										/>
 									</div>
-									<input
-										id="search-field"
-										className="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
-										placeholder="Search"
-										type="search"
-										name="search"
-									/>
-								</div>
+								</label>
 							</form>
 						</div>
 						<div className="ml-4 flex items-center md:ml-6">
-							<button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+							<button
+								type="button"
+								className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+							>
 								<span className="sr-only">View notifications</span>
 								<BellIcon className="h-6 w-6" aria-hidden="true" />
 							</button>

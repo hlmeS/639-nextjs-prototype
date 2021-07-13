@@ -9,7 +9,7 @@ module.exports = {
 		extend: {
 			colors: {
 				gray: colors.coolGray,
-				//blue: colors.lightBlue,
+				// blue: colors.lightBlue,
 				red: colors.rose,
 				pink: colors.fuchsia,
 				orange: colors.orange,
@@ -22,5 +22,6 @@ module.exports = {
 	variants: {
 		extend: {},
 	},
+	// eslint-disable-next-line global-require
 	plugins: [require('@tailwindcss/forms'), require('@tailwindcss/aspect-ratio')],
 }

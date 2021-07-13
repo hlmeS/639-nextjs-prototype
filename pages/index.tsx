@@ -1,20 +1,23 @@
 // pages/index.js
-import { AmplifyAuthenticator } from '@aws-amplify/ui-react'
-import { Amplify, API, Auth, withSSRContext } from 'aws-amplify'
+import { API, Amplify, withSSRContext } from 'aws-amplify'
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api-graphql'
-import Head from 'next/head'
+import { GetServerSideProps, GetServerSidePropsResult } from 'next'
+import React from 'react'
 import awsExports from '../src/aws-exports'
 import { createTodo } from '../src/graphql/mutations'
 import { listTodos } from '../src/graphql/queries'
-import styles from '../styles/Home.module.css'
 import Layout from '../components/Layout'
-import { GetServerSideProps } from 'next'
-import React from 'react'
 import { CreateTodoMutation, CreateTodoMutationVariables, Todo } from '../src/API'
 
 Amplify.configure({ ...awsExports, ssr: true })
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+interface Props {
+	todos: Todo[]
+}
+
+export const getServerSideProps: GetServerSideProps = async ({
+	req,
+}): Promise<GetServerSidePropsResult<Props>> => {
 	const SSR = withSSRContext({ req })
 	const response = await SSR.API.graphql({ query: listTodos })
 
@@ -25,13 +28,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	}
 }
 
-const handleCreateTodo = async (event: React.FormEvent<HTMLFormElement>) => {
+const handleCreateTodo = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
 	event.preventDefault()
-
 	const form = new FormData(event.currentTarget)
 
 	try {
-		console.log('etaetaet')
 		const variables: CreateTodoMutationVariables = {
 			input: {
 				name: String(form.get('name')),
@@ -45,20 +46,16 @@ const handleCreateTodo = async (event: React.FormEvent<HTMLFormElement>) => {
 			variables,
 		})
 
-		console.log(JSON.stringify(result))
-
 		if ('data' in result && result.data) {
 			const data = result.data as CreateTodoMutation
-			console.log(JSON.stringify(data))
 			window.location.href = `/todos/${data.createTodo.id}`
 		}
 	} catch ({ errors }) {
-		console.error(...errors)
 		throw new Error(errors[0].message)
 	}
 }
 
-const Home = ({ todos = [] }: { todos: Todo[] }) => {
+export default function Home({ todos = [] }: Props): React.ReactElement {
 	return (
 		<Layout>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
@@ -105,15 +102,15 @@ const Home = ({ todos = [] }: { todos: Todo[] }) => {
 									<div className="sm:col-span-4">
 										<label htmlFor="name" className="block text-sm font-medium text-gray-700">
 											Name
+											<div className="mt-1 flex rounded-md shadow-sm">
+												<input
+													type="text"
+													name="name"
+													id="name"
+													className="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+												/>
+											</div>
 										</label>
-										<div className="mt-1 flex rounded-md shadow-sm">
-											<input
-												type="text"
-												name="name"
-												id="name"
-												className="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-											/>
-										</div>
 									</div>
 
 									<div className="sm:col-span-6">
@@ -122,16 +119,16 @@ const Home = ({ todos = [] }: { todos: Todo[] }) => {
 											className="block text-sm font-medium text-gray-700"
 										>
 											Description
+											<div className="mt-1">
+												<textarea
+													id="description"
+													name="description"
+													rows={3}
+													className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+													defaultValue=""
+												/>
+											</div>
 										</label>
-										<div className="mt-1">
-											<textarea
-												id="description"
-												name="description"
-												rows={3}
-												className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
-												defaultValue={''}
-											/>
-										</div>
 									</div>
 								</div>
 							</div>
@@ -158,5 +155,3 @@ const Home = ({ todos = [] }: { todos: Todo[] }) => {
 		</Layout>
 	)
 }
-
-export default Home

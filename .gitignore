@@ -20,6 +20,7 @@
 *.pem
 .eslintignore
 .eslintrc.js
+.eslintcache
 .prettierignore
 .prettierrc.yml
 .vscode
